@@ -54,6 +54,7 @@ def lambda_handler(event, context):
         completion = openai.ChatCompletion.create(
           model="gpt-3.5-turbo",
           messages=messages,
+          max_tokens=2500,
           temperature=0.1,
         )
 
@@ -71,7 +72,7 @@ def lambda_handler(event, context):
       print(e)
       error_response = slack_client.chat_postMessage(
         channel=slack_channel_id,
-        text="何らかのエラーが発生しました。新しいスレッドを立てて質問をやりなおしてください。",
+        text="何らかのエラーが発生しました。質問をやりなおしてください。",
         thread_ts=user_input_ts
       )
       print(error_response)
